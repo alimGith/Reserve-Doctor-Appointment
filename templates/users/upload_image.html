@@ -1,0 +1,9 @@
+ {%extends 'base.html'%}
+ {%block content%}
+    <h1>Upload an Image</h1>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'image_upload' patient.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+{%endblock%}    

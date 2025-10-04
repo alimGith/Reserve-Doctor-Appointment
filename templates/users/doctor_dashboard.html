@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Doctor Dashboard</h2>
+    <p>Welcome, Dr. {{ user.first_name }}!</p>
+    {% comment %}
+    <!--<a href="{% url 'doctor_appointments' %}" class="btn">View Appointments</a>--> 
+    {% endcomment %}
+    {% comment %}
+    <a href="{% url 'book_appointment' %}" class="btn">Manage Availability</a>
+    <!--<a href="{% url 'doctor_manage_appointments' %}" class="btn">Manage Appointments</a>-->
+    {% endcomment %}
+    <h3>زمان‌های خالی شما:</h3>
+        <ul>
+            {% for slot in available_slots %}
+                <li>{{ slot.start_time }} تا {{ slot.end_time }}</li>
+            {% endfor %}
+        </ul>
+    <h3>قرارهای شما:</h3>
+    <ul>
+        {% for appointment in appointments %}
+            <li>{{ appointment.patient.username }} در {{ appointment.appointment_time }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add-slot' %}" class="btn btn-info" style="margin-right: 4px; background-color: rgb(163, 74, 11); color: aliceblue;">Add Slot</a>                
+    <a href="{% url 'select_patient' %}" class="btn btn-info" style="margin-right: 4px;">patient images</a> 
+    <a href="{% url 'select_patient_presc' %}" class="btn btn-info" style="margin-right: 4px;">patient prescription</a>
+    <a href="{% url 'edit_profile' %}" class="btn btn-warning">Edit Your Profile</a>           
+</div>
+{% endblock %}

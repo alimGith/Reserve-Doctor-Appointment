@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+{%block content%}
+    {%comment%}
+        <h1>Image Gallery</h1>
+            <ul>
+                {% for image in images %}
+                    <li>
+                        <h2>{{ image.title }}</h2>
+                        <img src="{{ image.image.url }}" alt="{{ image.title }}" width="300">
+                    </li>
+                {% endfor %}
+            </ul>
+    {%endcomment%}
+    {%if is_doctor%}
+        {%comment%}
+        <form method="get">
+            <label for="username">نام کاربری بیمار:</label>
+            <input type="text" name="username" id="username" required>
+            <button type="submit">جستجو</button>
+        </form>
+        {%endcomment%}
+        
+        {% if images %}
+            <h2>تصاویر بیمار {{ patient.username }}</h2>
+            <ul>
+                {% for image in images %}
+                    <h3>{{ image.title }}</h3> <!-- عنوان تصویر -->
+                    <li><img src="{{ image.image.url }}" alt="{{ image.title }}"></li>
+                    <p>آپلود شده توسط: دکتر {{ image.uploaded_by.username }} در تاریخ {{ image.uploaded_at }}</p>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>تصویری برای نمایش وجود ندارد یا شما دسترسی به این تصاویر ندارید.</p>
+        {% endif %}
+    {% else %}
+        {% if images %}
+            <h2>تصاویر بیمار {{ patient.username }}</h2>
+            <ul>
+                {% for image in images %}
+                    <h3>{{ image.title }}</h3> <!-- عنوان تصویر -->
+                    <li><img src="{{ image.image.url }}" alt="{{ image.title }}"></li>
+                    <p>آپلود شده توسط: دکتر {{ image.uploaded_by.username }} در تاریخ {{ image.uploaded_at }}</p>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>تصویری برای نمایش وجود ندارد یا شما دسترسی به این تصاویر ندارید.</p>
+        {% endif %}
+    {% endif %}
+{%endblock%}

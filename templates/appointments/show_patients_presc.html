@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{%block title%}show patients{%endblock%}
+{%block content%}
+    {%comment%}
+    <ul>
+        {%if patients%}
+            {% for patient in patients %}
+                <li>
+                    <a href="{% url 'prescription_write' patient.id%}" class="btn btn-info">{{patient.username}}</a>
+                </li>
+            {%endfor%}
+        {%endif%}
+    </ul>
+    {%endcomment%}
+    <form method="post">
+        {% csrf_token %}
+        <label for="patient">انتخاب بیمار:</label>
+        <select name="patient_id" id="patient">
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">{{ patient.username }}</option>
+            {% endfor %}   
+        </select>     
+        <button type="submit" name="action" value="give_prescription" class="btn btn-info">پیچیدن نسخه</button>
+        <button type="submit" name="action" value="show_prescription">نمایش نسخه</button>
+    </form>
+{%endblock%}

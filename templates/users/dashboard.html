@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Dashboard</h2>
+    {% if is_doctor %}
+        <h2>داشبورد دکتر</h2>
+        <h3>زمان‌های خالی شما:</h3>
+        <ul>
+            {% for slot in available_slots %}
+                <li>{{ slot.start_time }} تا {{ slot.end_time }}</li>
+            {% endfor %}
+        </ul>
+        <h3>قرارهای شما:</h3>
+        <ul>
+            {% for appointment in appointments %}
+                <li>{{ appointment.patient.username }} در {{ appointment.appointment_time }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>داشبورد کاربر</h2>
+        <h3>قرارهای شما:</h3>
+        <ul>
+            {% for appointment in appointments %}
+                <li>با {{ appointment.doctor.user.username }} در {{ appointment.appointment_time }}</li>
+            {% endfor %}
+        </ul>
+        <p>
+            <a href="{% url 'edit_profile' %}" class="btn">Edit Your Profile</a>
+        </p>
+    {% endif %}
+
+{% endblock %}

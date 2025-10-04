@@ -1,0 +1,6 @@
+<h2>ویرایش پروفایل</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ doctor_form.as_p }}
+  <button type="submit">ذخیره تغییرات</button>
+</form>

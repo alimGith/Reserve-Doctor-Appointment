@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+{%block content%}    
+    {%if is_doctor%}                
+        {% if prescriptions %}
+            <h2>نسخه های بیمار {{ patient.username }}</h2>
+            <ul>
+                {% for prescription in prescriptions %}
+                    <h3>{{ prescription.title }}</h3> <!-- عنوان تصویر -->                    
+                    <p>{{ prescription.text }}</p>
+                    <p>آپلود شده توسط: دکتر <span style="color: rgb(217, 17, 68);">{{ prescription.uploaded_by.username }} </span>در تاریخ {{ prescription.date }} و تخصص دکتر : {{ specialty }}</p>
+                    <hr/>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>نسخه ای برای نمایش وجود ندارد یا شما دسترسی به این نسخه ها ندارید.</p>
+        {% endif %}
+    {% else %}
+        {% if prescriptions %}
+            <h2>نسخه های بیمار {{ patient.username }}</h2>
+            <ul>
+                {% for prescription in prescriptions %}
+                    <h3>{{ prescription.title }}</h3> <!-- عنوان تصویر -->       
+                    <p>{{ prescription.text }}</p>
+                    <p>آپلود شده توسط: دکتر <span style="color: blueviolet;">{{ prescription.uploaded_by.username }} </span>در تاریخ {{ prescription.date }} و تخصص دکتر : {{ specialty }}</p>
+                    <hr/>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <p>نسخه ای برای نمایش وجود ندارد یا شما دسترسی به این نسخه ها ندارید.</p>
+        {% endif %}
+    {% endif %}
+{%endblock%}

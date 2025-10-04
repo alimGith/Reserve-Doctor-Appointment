@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}user_dashboard{%endblock%}
+{% block content %}
+    <h2>User Dashboard</h2>
+    <p>Welcome, {{ user.first_name }}!</p>
+    {%comment%}
+    <ul>
+        <li><a href="{% url 'select_doctor' %}" class="btn">Select Doctor</a></li>
+        <li><a href="{% url 'user_appointments' %}" class="btn">View Your Appointments</a></li>
+        <li><a href="{% url 'edit_profile' %}" class="btn">Edit Your Profile</a></li>
+
+        <li><a href="{% url 'book_appointment' %}" class="btn">Book Appointment</a></li>
+    </ul>
+    {%endcomment%}
+    <h3>قرارهای شما:</h3>
+    <ul>
+        {% for appointment in appointments %}
+            <li>با {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }} در {{ appointment.appointment_time }}</li>
+        {% endfor %}        
+    </ul>
+    {%comment%}
+    <h3>رزرو نوبت:</h3>
+    <form method="get" action="{% url 'select_doctor' %}">
+        <button type="submit" class="btn btn-primary">انتخاب دکتر</button>
+    </form>
+    {%endcomment%}
+    <h3>انتخاب دکتر برای رزرو نوبت:</h3>
+    <ul>
+        {% for doctor in doctors %}
+            <li>
+                <strong>دکتر {{ doctor.user.first_name }} {{ doctor.user.last_name }}</strong><br>
+                تخصص: {{ doctor.specialty }}<br>
+                <a href="{% url 'select_doctor_with_id' doctor.id %}" class="btn btn-info">نمایش زمان‌های موجود</a>                              
+            </li>
+        {% endfor %}
+    </ul>
+    <p>
+        <a href="{% url 'image_list' user.id %}" class="btn btn-info">patient images</a>        
+    </p>    
+    <p>
+        <a href="{% url 'prescription_list' user.id %}" class="btn btn-info">patient priscriptions</a>        
+    </p>    
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>زمان‌های خالی برای {{ doctor.user.username }}</h2>
+    <ul>
+    {%if available_slots%}
+        {% for slot in available_slots %}
+            <li>{{ slot.start_time }} تا {{ slot.end_time }}
+            <form method="POST" action="{% url 'book_appointment' slot.id %}">
+                {% csrf_token %}
+                <button type="submit">رزرو این زمان</button>
+            </form>
+            </li>
+        {% endfor %}
+    {% else %}
+        <p>No available slots at the moment.</p>
+    {% endif %}
+    </ul>
+{% endblock %}
